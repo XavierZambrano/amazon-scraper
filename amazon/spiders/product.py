@@ -17,7 +17,7 @@ class ProductSpider(scrapy.Spider):
         price = price_raw['1']
 
         yield {
-            'id': response.xpath('//input[@name="items[0.base][asin]"]/@value').get(),
+            'asin': response.xpath('//input[@name="items[0.base][asin]"]/@value').get(),
             'title': title,
             'price': price
         }
