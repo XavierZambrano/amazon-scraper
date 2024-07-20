@@ -53,7 +53,14 @@ class TestProductSpider(BetamaxTestCase):
         self.assertEqual(result['price'], expected_result)
 
     def get_mock_response(self, url):
-        response = self.session.get(url)
+        headers = {
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en', 'User-Agent': 'Scrapy/2.11.2 (+https://scrapy.org)',
+            'Accept-Encoding': 'gzip, deflate'
+        }
+        response = self.session.get(url, headers=headers)
+        if response.ok is False:
+            raise ValueError(f'Request to {url} failed with status code {response.status_code}')
         scrapy_response = HtmlResponse(body=response.content, url=url)
 
         return scrapy_response
