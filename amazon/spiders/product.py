@@ -5,7 +5,10 @@ import json
 class ProductSpider(scrapy.Spider):
     name = "product"
     allowed_domains = ["amazon.com"]
-    start_urls = ["https://www.amazon.com/Little-Black-Classics-Box-Penguin/dp/0141398876/"]
+
+    def __init__(self, urls, *args, **kwargs):
+        super(ProductSpider, self).__init__(*args, **kwargs)
+        self.start_urls = urls.split(',')
 
     def parse(self, response):
         title = response.xpath('//h1[@id="title"]//text()[normalize-space()]').get()
