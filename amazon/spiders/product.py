@@ -22,5 +22,5 @@ class ProductSpider(scrapy.Spider):
         yield {
             'asin': response.xpath('//input[@name="items[0.base][asin]"]/@value').get(),
             'title': title,
-            'price': price
+            'price': json.dumps(price)
         }
