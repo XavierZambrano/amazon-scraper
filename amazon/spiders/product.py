@@ -6,9 +6,9 @@ class ProductSpider(scrapy.Spider):
     name = "product"
     allowed_domains = ["amazon.com"]
 
-    def __init__(self, urls, *args, **kwargs):
+    def __init__(self, urls='', *args, **kwargs):
         super(ProductSpider, self).__init__(*args, **kwargs)
-        self.start_urls = urls.split(',')
+        self.start_urls = [] + urls.split(',')
 
     def parse(self, response):
         title = response.xpath('//h1[@id="title"]//text()[normalize-space()]').get()
